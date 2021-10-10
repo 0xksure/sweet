@@ -1,18 +1,21 @@
 use std::mem;
 
+use borsh::{BorshDeserialize, BorshSchema, BorshSerialize};
 use byteorder::{ByteOrder, LittleEndian};
+pub use solana_program;
 use solana_program::{
     account_info::{next_account_info, AccountInfo},
     decode_error::DecodeError,
     entrypoint,
     entrypoint::ProgramResult,
+    instruction::{AccountMeta, Instruction},
     msg,
     program_error::ProgramError,
     pubkey::Pubkey,
 };
-
-use borsh::{BorshDeserialize, BorshSchema, BorshSerialize};
 use thiserror::Error;
+
+solana_program::declare_id!("SweetS4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr");
 
 entrypoint!(process_instruction);
 
@@ -125,6 +128,17 @@ fn process_instruction(
         return Err(error);
     }
     Ok(())
+}
+
+pub fn create_sweet_instruction(data: &[u8], signer_pubkeys: &[&Pubkey]) -> Instruction {
+    Instruction {
+        program_id: id(),
+        accounts: signer_pubkeys
+            .iter()
+            .map(|&pubkey| AccountMeta::new_readonly(*pubkey, true))
+            .collect(),
+        data: data.to_vec(),
+    }
 }
 
 #[cfg(test)]
