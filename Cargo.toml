@@ -1,11 +1,7 @@
-cargo-features = ["resolver"]
-
 [package]
 name = "sweet"
 version = "0.1.0"
 edition = "2018"
-
-
 
 [features]
 exclude_entrypoint = []

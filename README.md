@@ -1,10 +1,28 @@
 # Sweet
 
+## solana cli
+
+Make sure you use the v1.8.0 of the solana cli.
+
+To download run the following cmd in your terminal
+
+```
+    > sh -c "$(curl -sSfL https://release.solana.com/v1.8.0/install)"
+```
+
 ## build as on-chain program
 
 ```
     > cargo build-bpf
 ```
+
+this will create the solana program executable in the target folder. If you wish to deploy the program hit
+
+```
+    > solana program deploy /Users/kristofferhovlandberg/shiftx/personal/sweet/target/deploy/sweet.so
+```
+
+make sure to set the --url flag to the right network
 
 ## testing
 
